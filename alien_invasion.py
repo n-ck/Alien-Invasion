@@ -16,12 +16,14 @@ def run_game():
 		(ai_settings.screen_width, ai_settings.screen_height))
 	pygame.display.set_caption("Alien Invasion")
 
-	# Make a ship.
+
+	# Make a ship, a group of bullets, and a group of aliens.
 	ship = Ship(ai_settings, screen)
-	# Make a group to store bullets in.
 	bullets = Group()
-	# Make an alien.
-	alien = Alien(ai_settings, screen)
+	aliens = Group()
+
+	# Create the first fleet of aliens.
+	gf.create_fleet(ai_settings, screen, aliens)
 
 	# Set the background color.
 	bg_color = (ai_settings.bg_color)
@@ -32,7 +34,7 @@ def run_game():
 		gf.check_events(ai_settings, screen, ship, bullets)
 		ship.update()
 		gf.update_bullets(bullets)
-		gf.update_screen(ai_settings, screen, ship, alien, bullets)
+		gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 
 run_game()
