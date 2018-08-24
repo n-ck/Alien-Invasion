@@ -182,30 +182,6 @@ def check_aliens_bottom(ai_settings, screen, stats, sb, ship, aliens, bullets):
 			ship_hit(ai_settings, screen, stats, sb, ship, aliens, bullets)
 			break
 
-def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
-	"""Respond to ship being hit by alien."""
-	if stats.ships_left > 0:
-		# Decrement ships left.
-		stats.ships_left -= 1
-
-		# Update scoreboard.
-		sb.prep_ships()
-
-		# Empty the list of aliens and bullets.
-		aliens.empty()
-		bullets.empty()
-
-		# Create a new fleet and center the ship.
-		create_fleet(ai_settings, screen, ship, aliens)
-		ship.center_ship()
-
-		# Pause
-		sleep(0.5)
-
-	else:
-		stats.game_active = False
-		pygame.mouse.set_visible = True
-
 def update_aliens(ai_settings, screen, stats, sb, ship, aliens, bullets):
 	"""
 	Check if the fleet is at an edge,
@@ -221,6 +197,29 @@ def update_aliens(ai_settings, screen, stats, sb, ship, aliens, bullets):
 	# Look for aliens hitting the bottom of the screen.
 	check_aliens_bottom(ai_settings, screen, stats, sb, ship, aliens, bullets)
 
+def ship_hit(ai_settings, screen, stats, sb, ship, aliens, bullets):
+	"""Respond to ship being hit by alien."""
+	if stats.ships_left > 0:
+		# Decrement ships left.
+		stats.ships_left -= 1
+
+		# Update scoreboard.
+		sb.prep_ships()
+
+	else:
+		stats.game_active = False
+		pygame.mouse.set_visible = True
+
+		# Empty the list of aliens and bullets.
+		aliens.empty()
+		bullets.empty()
+
+		# Create a new fleet and center the ship.
+		create_fleet(ai_settings, screen, ship, aliens)
+		ship.center_ship()
+
+		# Pause
+		sleep(0.5)
 
 def check_high_score(stats, sb):
 	"""Check to see if there's a new high score."""
